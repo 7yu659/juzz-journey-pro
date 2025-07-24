@@ -2,29 +2,37 @@ import { useState } from "react";
 import { FeatureCard } from "@/components/FeatureCard";
 import { SurahsModal } from "@/components/SurahsModal";
 import { PageSearchModal } from "@/components/PageSearchModal";
+import { PDFViewer } from "@/components/PDFViewer";
 import { Book, BookOpen, Search, Star, Menu, Home } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
 const Index = () => {
   const [surahsModalOpen, setSurahsModalOpen] = useState(false);
   const [pageSearchModalOpen, setPageSearchModalOpen] = useState(false);
+  const [showPDF, setShowPDF] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const handleSurahSelect = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+    setShowPDF(true);
     toast({
       title: "সূরা নির্বাচিত",
       description: `পৃষ্ঠা ${pageNumber} এ যাচ্ছি...`,
     });
-    // Here you would integrate with the PDF viewer
-    console.log(`Navigating to page ${pageNumber}`);
   };
 
   const handlePageSelect = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+    setShowPDF(true);
     toast({
       title: "পৃষ্ঠা নির্বাচিত",
       description: `পৃষ্ঠা ${pageNumber} এ যাচ্ছি...`,
     });
-    // Here you would integrate with the PDF viewer
-    console.log(`Navigating to page ${pageNumber}`);
+  };
+
+  const handleGoHome = () => {
+    setShowPDF(false);
+    setCurrentPage(1);
   };
 
   const handleParasClick = () => {
@@ -33,6 +41,11 @@ const Index = () => {
       description: "পারা সমূহের ফিচার শীঘ্রই যোগ করা হবে।",
     });
   };
+
+  // Show PDF viewer if showPDF is true
+  if (showPDF) {
+    return <PDFViewer onGoHome={handleGoHome} initialPage={currentPage} />;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-islamic-green-light to-background">
@@ -121,11 +134,17 @@ const Index = () => {
       <footer className="fixed bottom-0 left-0 right-0 bg-gradient-header text-white p-4 shadow-lg">
         <div className="container mx-auto">
           <div className="flex justify-around items-center">
-            <button className="flex flex-col items-center space-y-1 text-white/80 hover:text-white transition-colors">
+            <button 
+              className="flex flex-col items-center space-y-1 text-white transition-colors"
+              onClick={handleGoHome}
+            >
               <Home className="h-5 w-5" />
               <span className="text-xs">হোম</span>
             </button>
-            <button className="flex flex-col items-center space-y-1 text-white/80 hover:text-white transition-colors">
+            <button 
+              className="flex flex-col items-center space-y-1 text-white/80 hover:text-white transition-colors"
+              onClick={() => setPageSearchModalOpen(true)}
+            >
               <Search className="h-5 w-5" />
               <span className="text-xs">সার্চ</span>
             </button>
@@ -133,7 +152,10 @@ const Index = () => {
               <Book className="h-5 w-5" />
               <span className="text-xs">বুকমার্ক</span>
             </button>
-            <button className="flex flex-col items-center space-y-1 text-white/80 hover:text-white transition-colors">
+            <button 
+              className="flex flex-col items-center space-y-1 text-white/80 hover:text-white transition-colors"
+              onClick={() => setSurahsModalOpen(true)}
+            >
               <BookOpen className="h-5 w-5" />
               <span className="text-xs">পড়ুন</span>
             </button>

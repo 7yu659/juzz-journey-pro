@@ -30,7 +30,7 @@ export const PageSearchModal = ({ open, onOpenChange, onPageSelect }: PageSearch
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md bg-background border-islamic-green/20 shadow-modal">
+      <DialogContent className="max-w-md bg-background border-islamic-green/20 shadow-modal" aria-describedby="page-search-description">
         <DialogHeader className="text-center">
           <DialogTitle className="text-2xl font-bold text-islamic-green flex items-center justify-center gap-2">
             <BookOpen className="h-6 w-6" />
@@ -61,6 +61,9 @@ export const PageSearchModal = ({ open, onOpenChange, onPageSelect }: PageSearch
           >
             পড়ুন
           </Button>
+        </div>
+        <div id="page-search-description" className="sr-only">
+          কুরআনের যে কোনো পৃষ্ঠায় সরাসরি যাওয়ার জন্য পৃষ্ঠা নম্বর লিখুন।
         </div>
       </DialogContent>
     </Dialog>

@@ -28,7 +28,7 @@ export const SurahsModal = ({ open, onOpenChange, onSurahSelect }: SurahsModalPr
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl h-[80vh] bg-background border-islamic-green/20 shadow-modal">
+      <DialogContent className="max-w-4xl h-[80vh] bg-background border-islamic-green/20 shadow-modal" aria-describedby="surahs-modal-description">
         <DialogHeader className="border-b border-islamic-green-light/30 pb-4">
           <DialogTitle className="text-2xl font-bold text-center text-islamic-green">
             সূরা সমূহ
@@ -54,6 +54,9 @@ export const SurahsModal = ({ open, onOpenChange, onSurahSelect }: SurahsModalPr
             ))}
           </div>
         </ScrollArea>
+        <div id="surahs-modal-description" className="sr-only">
+          কুরআনের ১১৪টি সূরার তালিকা। যে কোনো সূরায় ক্লিক করে সরাসরি সেই পৃষ্ঠায় যান।
+        </div>
       </DialogContent>
     </Dialog>
   );
